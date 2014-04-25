@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "36DCC0931905CE64006A44A3"
-               BuildableName = "SaintF.app"
-               BlueprintName = "SaintF"
+               BlueprintIdentifier = "36DCC24D1905CEC9006A44A3"
+               BuildableName = "libcocos2d-lib.a"
+               BlueprintName = "cocos2d-lib"
                ReferencedContainer = "container:SaintF.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,26 +28,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "36DCC25A1905CEC9006A44A3"
-               BuildableName = "cocos2d-libTests.xctest"
-               BlueprintName = "cocos2d-libTests"
-               ReferencedContainer = "container:SaintF.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "36DCC0931905CE64006A44A3"
-            BuildableName = "SaintF.app"
-            BlueprintName = "SaintF"
-            ReferencedContainer = "container:SaintF.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -58,15 +39,6 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "36DCC0931905CE64006A44A3"
-            BuildableName = "SaintF.app"
-            BlueprintName = "SaintF"
-            ReferencedContainer = "container:SaintF.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -76,15 +48,6 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "36DCC0931905CE64006A44A3"
-            BuildableName = "SaintF.app"
-            BlueprintName = "SaintF"
-            ReferencedContainer = "container:SaintF.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
