@@ -17,14 +17,20 @@ static MainGameLayer* _sharedMainLayer = nil;
 
 @end
 
-@implementation MainGameLayer
 
+
+@implementation MainGameLayer
+@synthesize commonBatch;
 -(id)init {
     if(self = [super init])
     {
-        
+        [self createBatches];
     }
     return self;
+}
+
+-(void) createBatches {
+    commonBatch = [CCSpriteBatchNode batchNodeWithFile:@"atlas-png"];
 }
 
 -(void) loadHero {
@@ -38,6 +44,10 @@ static MainGameLayer* _sharedMainLayer = nil;
         _sharedMainLayer = [[MainGameLayer alloc] init];
     }
     return _sharedMainLayer;
+}
+
++(CCSpriteBatchNode*)commonBatch {
+    return [_sharedMainLayer commonBatch];
 }
 
 @end

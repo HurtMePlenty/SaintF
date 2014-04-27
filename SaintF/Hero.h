@@ -9,9 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
+typedef enum {
+    LEFT,
+    RIGHT
+} MoveDirection;
+
 @interface Hero : CCNode
 
-
+-(void) startMoving: (MoveDirection)direction;
+-(void) stopMoving;
 +(Hero*) sharedHero;
 
 @end

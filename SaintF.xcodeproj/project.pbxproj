@@ -149,6 +149,8 @@
 		36DCC567190713F3006A44A3 /* GameScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 36DCC566190713F3006A44A3 /* GameScreen.m */; };
 		36DCC56A19071E4C006A44A3 /* MainGameLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 36DCC56919071E4C006A44A3 /* MainGameLayer.m */; };
 		36DCC56D1907211F006A44A3 /* Hero.m in Sources */ = {isa = PBXBuildFile; fileRef = 36DCC56C1907211F006A44A3 /* Hero.m */; };
+		C036D6E0190BF2B100EE2ABE /* AnimationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C036D6DF190BF2B100EE2ABE /* AnimationHelper.m */; };
+		C036D6E3190D1D8000EE2ABE /* LevelBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = C036D6E2190D1D8000EE2ABE /* LevelBuilder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -458,6 +460,10 @@
 		36DCC56919071E4C006A44A3 /* MainGameLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainGameLayer.m; sourceTree = "<group>"; };
 		36DCC56B1907211F006A44A3 /* Hero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hero.h; sourceTree = "<group>"; };
 		36DCC56C1907211F006A44A3 /* Hero.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hero.m; sourceTree = "<group>"; };
+		C036D6DE190BF2B100EE2ABE /* AnimationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationHelper.h; sourceTree = "<group>"; };
+		C036D6DF190BF2B100EE2ABE /* AnimationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationHelper.m; sourceTree = "<group>"; };
+		C036D6E1190D1D8000EE2ABE /* LevelBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelBuilder.h; sourceTree = "<group>"; };
+		C036D6E2190D1D8000EE2ABE /* LevelBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelBuilder.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -530,6 +536,7 @@
 		36DCC0AB1905CE64006A44A3 /* SaintF */ = {
 			isa = PBXGroup;
 			children = (
+				C036D6DD190BF29E00EE2ABE /* Heplers */,
 				36DCC564190713DA006A44A3 /* GameLogic */,
 				36DCC23C1905CE67006A44A3 /* AppDelegate.h */,
 				36DCC23D1905CE67006A44A3 /* AppDelegate.m */,
@@ -964,8 +971,19 @@
 				36DCC56919071E4C006A44A3 /* MainGameLayer.m */,
 				36DCC56B1907211F006A44A3 /* Hero.h */,
 				36DCC56C1907211F006A44A3 /* Hero.m */,
+				C036D6E1190D1D8000EE2ABE /* LevelBuilder.h */,
+				C036D6E2190D1D8000EE2ABE /* LevelBuilder.m */,
 			);
 			name = GameLogic;
+			sourceTree = "<group>";
+		};
+		C036D6DD190BF29E00EE2ABE /* Heplers */ = {
+			isa = PBXGroup;
+			children = (
+				C036D6DE190BF2B100EE2ABE /* AnimationHelper.h */,
+				C036D6DF190BF2B100EE2ABE /* AnimationHelper.m */,
+			);
+			name = Heplers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1062,10 +1080,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C036D6E3190D1D8000EE2ABE /* LevelBuilder.m in Sources */,
 				36DCC5631905DA06006A44A3 /* MainMenu.m in Sources */,
 				36DCC23E1905CE67006A44A3 /* AppDelegate.m in Sources */,
 				36DCC56A19071E4C006A44A3 /* MainGameLayer.m in Sources */,
 				36DCC2441905CE67006A44A3 /* IntroLayer.m in Sources */,
+				C036D6E0190BF2B100EE2ABE /* AnimationHelper.m in Sources */,
 				36DCC23B1905CE67006A44A3 /* main.m in Sources */,
 				36DCC567190713F3006A44A3 /* GameScreen.m in Sources */,
 				36DCC56D1907211F006A44A3 /* Hero.m in Sources */,
@@ -1234,18 +1254,21 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SaintF/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"SaintF/libs/kazmath/include\"";
 				INFOPLIST_FILE = SaintF/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-lsqlite3",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1254,17 +1277,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SaintF/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"SaintF/libs/kazmath/include\"";
 				INFOPLIST_FILE = SaintF/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-lsqlite3",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};

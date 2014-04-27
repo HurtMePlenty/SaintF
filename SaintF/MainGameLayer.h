@@ -12,8 +12,10 @@
 @interface MainGameLayer : CCLayer {
     
 }
+@property (nonatomic) CCSpriteBatchNode* commonBatch;
 
 +(MainGameLayer*) sharedGameLayer;
++(CCSpriteBatchNode*) commonBatch;
 
 
 @end
