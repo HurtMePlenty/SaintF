@@ -18,6 +18,9 @@ typedef enum {
 
 -(void) startMoving: (MoveDirection)direction;
 -(void) stopMoving;
+-(void) spawnAtPosition:(CGPoint)position;
+-(CGSize) size;
+
 +(Hero*) sharedHero;
 
 @end

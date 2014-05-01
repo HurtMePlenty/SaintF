@@ -7,12 +7,11 @@
 //
 
 #import "MainGameLayer.h"
-#import "Hero.h"
 
 static MainGameLayer* _sharedMainLayer = nil;
 
 @interface MainGameLayer() {
-    Hero* hero;
+
 }
 
 @end
@@ -25,17 +24,14 @@ static MainGameLayer* _sharedMainLayer = nil;
     if(self = [super init])
     {
         [self createBatches];
+        
     }
     return self;
 }
 
 -(void) createBatches {
-    commonBatch = [CCSpriteBatchNode batchNodeWithFile:@"atlas-png"];
-}
-
--(void) loadHero {
-    hero = [Hero sharedHero];
-    [self addChild:hero];
+    commonBatch = [CCSpriteBatchNode batchNodeWithFile:@"atlas.png"];
+    [self addChild:commonBatch];
 }
 
 +(MainGameLayer*) sharedGameLayer {
@@ -49,5 +45,7 @@ static MainGameLayer* _sharedMainLayer = nil;
 +(CCSpriteBatchNode*)commonBatch {
     return [_sharedMainLayer commonBatch];
 }
+
+
 
 @end

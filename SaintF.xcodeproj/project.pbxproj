@@ -150,7 +150,9 @@
 		36DCC56A19071E4C006A44A3 /* MainGameLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 36DCC56919071E4C006A44A3 /* MainGameLayer.m */; };
 		36DCC56D1907211F006A44A3 /* Hero.m in Sources */ = {isa = PBXBuildFile; fileRef = 36DCC56C1907211F006A44A3 /* Hero.m */; };
 		C036D6E0190BF2B100EE2ABE /* AnimationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C036D6DF190BF2B100EE2ABE /* AnimationHelper.m */; };
-		C036D6E3190D1D8000EE2ABE /* LevelBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = C036D6E2190D1D8000EE2ABE /* LevelBuilder.m */; };
+		C036D6E3190D1D8000EE2ABE /* GameLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = C036D6E2190D1D8000EE2ABE /* GameLogic.m */; };
+		C0CCB4D4190F158B0016D49A /* GUILayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCB4D3190F158B0016D49A /* GUILayer.m */; };
+		C0CD05001910382F00F542CD /* BackgroundLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CD04FF1910382F00F542CD /* BackgroundLayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -462,8 +464,12 @@
 		36DCC56C1907211F006A44A3 /* Hero.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hero.m; sourceTree = "<group>"; };
 		C036D6DE190BF2B100EE2ABE /* AnimationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationHelper.h; sourceTree = "<group>"; };
 		C036D6DF190BF2B100EE2ABE /* AnimationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationHelper.m; sourceTree = "<group>"; };
-		C036D6E1190D1D8000EE2ABE /* LevelBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelBuilder.h; sourceTree = "<group>"; };
-		C036D6E2190D1D8000EE2ABE /* LevelBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelBuilder.m; sourceTree = "<group>"; };
+		C036D6E1190D1D8000EE2ABE /* GameLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLogic.h; sourceTree = "<group>"; };
+		C036D6E2190D1D8000EE2ABE /* GameLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLogic.m; sourceTree = "<group>"; };
+		C0CCB4D2190F158B0016D49A /* GUILayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GUILayer.h; sourceTree = "<group>"; };
+		C0CCB4D3190F158B0016D49A /* GUILayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GUILayer.m; sourceTree = "<group>"; };
+		C0CD04FE1910382F00F542CD /* BackgroundLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundLayer.h; sourceTree = "<group>"; };
+		C0CD04FF1910382F00F542CD /* BackgroundLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -971,8 +977,12 @@
 				36DCC56919071E4C006A44A3 /* MainGameLayer.m */,
 				36DCC56B1907211F006A44A3 /* Hero.h */,
 				36DCC56C1907211F006A44A3 /* Hero.m */,
-				C036D6E1190D1D8000EE2ABE /* LevelBuilder.h */,
-				C036D6E2190D1D8000EE2ABE /* LevelBuilder.m */,
+				C036D6E1190D1D8000EE2ABE /* GameLogic.h */,
+				C036D6E2190D1D8000EE2ABE /* GameLogic.m */,
+				C0CCB4D2190F158B0016D49A /* GUILayer.h */,
+				C0CCB4D3190F158B0016D49A /* GUILayer.m */,
+				C0CD04FE1910382F00F542CD /* BackgroundLayer.h */,
+				C0CD04FF1910382F00F542CD /* BackgroundLayer.m */,
 			);
 			name = GameLogic;
 			sourceTree = "<group>";
@@ -1080,11 +1090,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C036D6E3190D1D8000EE2ABE /* LevelBuilder.m in Sources */,
+				C0CD05001910382F00F542CD /* BackgroundLayer.m in Sources */,
+				C036D6E3190D1D8000EE2ABE /* GameLogic.m in Sources */,
 				36DCC5631905DA06006A44A3 /* MainMenu.m in Sources */,
 				36DCC23E1905CE67006A44A3 /* AppDelegate.m in Sources */,
 				36DCC56A19071E4C006A44A3 /* MainGameLayer.m in Sources */,
 				36DCC2441905CE67006A44A3 /* IntroLayer.m in Sources */,
+				C0CCB4D4190F158B0016D49A /* GUILayer.m in Sources */,
 				C036D6E0190BF2B100EE2ABE /* AnimationHelper.m in Sources */,
 				36DCC23B1905CE67006A44A3 /* main.m in Sources */,
 				36DCC567190713F3006A44A3 /* GameScreen.m in Sources */,

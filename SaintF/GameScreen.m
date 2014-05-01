@@ -8,6 +8,9 @@
 
 #import "GameScreen.h"
 #import "MainGameLayer.h"
+#import "GUILayer.h"
+#import "GameLogic.h"
+#import "BackgroundLayer.h"
 
 @interface GameScreen() {
     
@@ -19,15 +22,17 @@
 -(id)init{
     if(self = [super init])
     {
-        
+        [self loadResources];
         [self loadLayers];
+        [GameLogic buildLevel];
     }
     return self;
 }
 
 -(void) loadLayers {
-    MainGameLayer* mainGameLayer = [MainGameLayer sharedGameLayer];
-    [self addChild:mainGameLayer];
+    [self addChild:[MainGameLayer sharedGameLayer] z:0];
+    [self addChild:[GUILayer sharedGUILayer] z:1];
+    [self addChild:[BackgroundLayer sharedBGLayer] z:-1];
 }
 
 -(void) loadResources {

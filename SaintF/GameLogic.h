@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LevelBuilder : NSObject
+@interface GameLogic : NSObject
+
++(void) buildLevel;
 
 @end

@@ -31,8 +31,9 @@ static Hero* _sharedHero;
     if(self = [super init])
     {
         [self loadContent];
+        [self buildAnimations];
         [self scheduleUpdate];
-        speed = 5.0f;
+        speed = 1.0f;
     }
     return self;
 }
@@ -52,13 +53,34 @@ static Hero* _sharedHero;
 
 -(void)startMoving:(MoveDirection)direction {
     currentDirection = direction;
+    if(direction == LEFT ) {
+        heroSprite.rotationY = 180;
+    }
+    else {
+        heroSprite.rotationY = 0;
+    }
     [heroSprite setTextureRect:CGRectZero];
     [heroSprite runAction:moveAction];
+    isMoving = true;
 }
 
 -(void)stopMoving {
     [heroSprite stopAction:moveAction];
     [heroSprite setTextureRect:[heroStands rect]];
+    isMoving = false;
+}
+
+-(void) spawnAtPosition:(CGPoint)position {
+    MainGameLayer* mainGameLayer = [MainGameLayer sharedGameLayer];
+    [mainGameLayer addChild:self];
+    CCSpriteBatchNode* commonBatch = [mainGameLayer commonBatch];
+    [commonBatch addChild:heroSprite];
+    self.position = heroSprite.position = position;
+}
+
+-(CGSize) size
+{
+    return [heroSprite contentSize];
 }
 
 +(Hero*) sharedHero {
@@ -70,7 +92,15 @@ static Hero* _sharedHero;
 }
 
 -(void)update:(ccTime)delta { //todo make lag insensetive
-    self.position = ccpAdd(self.position, ccp(speed, 0.0f));
+    if(!isMoving){
+        return;
+    }
+    float dx = speed;
+    if(currentDirection == LEFT)
+    {
+        dx = -dx;
+    }
+    self.position = ccpAdd(self.position, ccp(dx, 0.0f));
     heroSprite.position = self.position;
 }
 
