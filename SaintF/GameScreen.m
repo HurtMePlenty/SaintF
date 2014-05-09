@@ -9,7 +9,7 @@
 #import "GameScreen.h"
 #import "MainGameLayer.h"
 #import "GUILayer.h"
-#import "GameLogic.h"
+#import "Level.h"
 #import "BackgroundLayer.h"
 
 @interface GameScreen() {
@@ -24,7 +24,7 @@
     {
         [self loadResources];
         [self loadLayers];
-        [GameLogic buildLevel];
+        [Level buildLevel];
     }
     return self;
 }

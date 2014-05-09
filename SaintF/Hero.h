@@ -8,11 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
+#import "FlowingAnimation.h"
 
-typedef enum {
-    LEFT,
-    RIGHT
-} MoveDirection;
+
 
 @interface Hero : CCNode
 

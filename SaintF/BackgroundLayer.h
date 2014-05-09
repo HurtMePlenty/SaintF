@@ -9,20 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-typedef enum {
-    bush,
-    klen,
-    oak,
-    platan,
-    yasen
-    
-} BackgroundObjects;
-
 @interface BackgroundLayer : CCLayerColor {
     
 }
 
--(void) scrollBackgroundFor:(float)length;
 +(BackgroundLayer*) sharedBGLayer;
 
 

@@ -19,6 +19,8 @@
 - (id)init {
     if(self = [super init])
     {
+        self.color = ccc3(220, 220, 255);
+        self.opacity = 255;
         screenSize = [[CCDirector sharedDirector] winSize];
         [self createMenu];
     }
