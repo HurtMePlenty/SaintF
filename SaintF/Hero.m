@@ -19,13 +19,15 @@ static Hero* _sharedHero;
     float winWidth;
     CCSprite* heroSprite;
     CCSpriteFrame* heroStands;
-    //CCRepeatForever* moveAction;
     CCSprite* commonAnimationSprite;
     FlowingAnimation* moveAnimation;
+    float moveAnimationShift;
     
     MoveDirection currentDirection;
-    bool isMoving;
-    float speed;
+    bool isMoving; // check if we already moving and can't start moving
+    bool shouldStopMoving; //when we stop touch
+    float moveAnimationDelay;
+    float scrollDistPerStep;
 }
 @end
 
@@ -35,11 +37,14 @@ static Hero* _sharedHero;
 -(id)init{
     if(self = [super init])
     {
+        winWidth = [[CCDirector sharedDirector] winSize].width;
+        moveAnimationShift = 100.0f;
+        moveAnimationDelay = 0.5f;
+        scrollDistPerStep = moveAnimationShift;
+        
+        [GameLogic sharedGameLogic].scrollSpeed = scrollDistPerStep / moveAnimationDelay;
         [self loadContent];
         [self buildAnimations];
-        [self scheduleUpdate];
-        winWidth = [[CCDirector sharedDirector] winSize].width;
-        speed = 1.5f;
     }
     return self;
 }
@@ -47,46 +52,101 @@ static Hero* _sharedHero;
 -(void)loadContent {
     heroSprite = [CCSprite node];
     CCSpriteFrameCache* frameCache = [CCSpriteFrameCache sharedSpriteFrameCache];
-    heroStands = [frameCache spriteFrameByName:@"hero_move1.png"];
+    heroStands = [frameCache spriteFrameByName:@"turn1.png"];
     [heroSprite setDisplayFrame:heroStands];
 }
 
 -(void) buildAnimations {
-    /*CCAnimation* animation = [CCAnimation animationWithFrame:@"hero_move" startFrameIndex:1 frameCount:2 delay:0.4f];
-    CCAnimate* animate =[CCAnimate  actionWithAnimation:animation];
-    moveAction = [CCRepeatForever actionWithAction:animate];
-    */
-    
     CCSpriteFrameCache* frameCache = [CCSpriteFrameCache sharedSpriteFrameCache];
-    CCSpriteFrame* frame1 = [frameCache spriteFrameByName:@"hero_move1.png"];
-    CCSpriteFrame* frame2 = [frameCache spriteFrameByName:@"hero_move2.png"];
+    CCSpriteFrame* frame1 = [frameCache spriteFrameByName:@"move_new1.png"];
+    CCSpriteFrame* frame2 = [frameCache spriteFrameByName:@"move_new2.png"];
     NSArray* moveFrames = [NSArray arrayWithObjects:frame1, frame2, nil];
-    moveAnimation = [[FlowingAnimation alloc] initWithFrames:moveFrames delay:1.0f callBack:nil];
-    [self addChild:moveAnimation];
+    
+    void (^callback)(CGPoint) = ^(CGPoint shift){
+        [self animationMoveCallback:shift];
+    };
+    
+    moveAnimation = [[FlowingAnimation alloc] initWithFrames:moveFrames delay:moveAnimationDelay callBack:callback];
+    [heroSprite addChild:moveAnimation];
 }
 
 -(void)startMoving:(MoveDirection)direction {
     if(isMoving){
         return;
     }
+    float scrollShift = scrollDistPerStep;
     currentDirection = direction;
     if(direction == LEFT ) {
         heroSprite.rotationY = 180;
+        scrollShift = -scrollShift;
     }
     else {
         heroSprite.rotationY = 0;
     }
+    
     [heroSprite setTextureRect:CGRectZero];
-    [moveAnimation startAnimation:direction];
-    //[heroSprite runAction:moveAction];
+    float allowedShiftX = [self getShiftForDirection:direction];
+    [moveAnimation startAnimationWithShift:ccp(allowedShiftX, 0.0f)];
+    [[GameLogic sharedGameLogic] scrollBackgroundFor:scrollShift]; //start scrolling after starting animation
     isMoving = true;
+    shouldStopMoving = false;
+}
+
+-(float) getShiftForDirection: (MoveDirection) direction {
+    float distanceAllowed;
+    if (direction == RIGHT) {
+        distanceAllowed = [self getRightBorder] - self.position.x;
+    }
+    else {
+        distanceAllowed = self.position.x - [self getLeftBorder];
+    }
+    if (moveAnimationShift < distanceAllowed) {
+        return moveAnimationShift;
+    }
+    else {
+        return distanceAllowed;
+    }
+}
+
+-(void) animationMoveCallback: (CGPoint)shift {
+    float moveDx = shift.x;
+    float scrollShift = scrollDistPerStep;
+    if(currentDirection == LEFT)
+    {
+        moveDx = -moveDx;
+        scrollShift = -scrollShift;
+    }
+    
+    CGPoint moveTo = ccpAdd(self.position, ccp(moveDx, shift.y));
+    [self move:moveTo];
+    if(shouldStopMoving)
+    {
+        [moveAnimation stopAnimation];
+        isMoving = false;
+        [heroSprite setTextureRect:[heroStands rect]];
+    }else {
+        //first we move, then calculate next possible shift
+        float allowedShiftX = [self getShiftForDirection:currentDirection];
+        [moveAnimation setShift:ccp(allowedShiftX, 0.0f)];
+        [[GameLogic sharedGameLogic] scrollBackgroundFor: scrollShift]; //start new animation circle and scroll
+        CCLOG(@"next shift allowedShiftX = %f", allowedShiftX);
+    }
+}
+
+-(float) getRightBorder {
+    return winWidth / 2.5;
+}
+
+-(float) getLeftBorder {
+    return winWidth / 5;
 }
 
 -(void)stopMoving {
-    //[heroSprite stopAction:moveAction];
-    [moveAnimation stopAnimation];
-    [heroSprite setTextureRect:[heroStands rect]];
-    isMoving = false;
+    shouldStopMoving = true;
+}
+
+-(void) move: (CGPoint) point {
+    heroSprite.position = self.position = point;
 }
 
 -(void) spawnAtPosition:(CGPoint)position {
@@ -108,28 +168,6 @@ static Hero* _sharedHero;
         _sharedHero = [[Hero alloc] init];
     }
     return _sharedHero;
-}
-
--(void)update:(ccTime)delta { //todo make lag insensetive
-    if(!isMoving){
-        return;
-    }
-    float dx = speed;
-    if(currentDirection == LEFT)
-    {
-        dx = -dx;
-    }
-    
-    bool canMoveRight = dx > 0 && self.position.x < winWidth / 2.5;
-    bool canMoveLeft = dx < 0 && self.position.x > winWidth / 5;
-    
-    if(canMoveLeft || canMoveRight)
-    {
-        self.position = ccpAdd(self.position, ccp(dx, 0.0f));
-        heroSprite.position = self.position;
-        
-    }
-    [[GameLogic sharedGameLogic] scrollBackgroundFor:dx];;
 }
 
 @end

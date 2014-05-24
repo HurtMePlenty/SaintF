@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "cocos2d.h"
 
 typedef enum {
     bush,
@@ -19,8 +20,11 @@ typedef enum {
 
 @interface GameLogic : NSObject
 
+@property (nonatomic) float scrollSpeed;
+
 -(void) scrollBackgroundFor:(float)length;
 -(void) buildInitialBackground;
+-(void)update:(ccTime)delta;
 
 +(GameLogic*) sharedGameLogic;
 

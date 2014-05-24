@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "BGObjectInfo.h"
+#import "FlowingAnimation.h"
 
 typedef enum {
     raven,
@@ -19,6 +20,15 @@ typedef enum {
     
 }
 
-+(Creep*) spawnCreepWithType: (creepTypes) type spawnPos: (CGPoint)spawnPos;
+@property (nonatomic) bool isDead;
+
+-(CGRect) hitBox;
+-(CGSize) size;
+-(void)startMoving:(MoveDirection)direction;
+-(void) spawnAtPosition: (CGPoint)position;
+-(id) initWithType: (creepTypes) type;
+-(void) move: (CGPoint) point;
+
++(Creep*) spawnCreepWithType: (creepTypes) type position: (CGPoint)position;
 
 @end

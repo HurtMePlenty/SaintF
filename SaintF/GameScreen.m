@@ -10,10 +10,11 @@
 #import "MainGameLayer.h"
 #import "GUILayer.h"
 #import "Level.h"
+#import "GameLogic.h"
 #import "BackgroundLayer.h"
 
 @interface GameScreen() {
-    
+    GameLogic* sharedGameLogic;
 }
 @end
 
@@ -25,6 +26,9 @@
         [self loadResources];
         [self loadLayers];
         [Level buildLevel];
+        
+        sharedGameLogic = [GameLogic sharedGameLogic];
+        [self scheduleUpdate]; //sent update to our gameLogic
     }
     return self;
 }
@@ -45,6 +49,10 @@
     GameScreen* menuLayer = [GameScreen node];
     [menuScene addChild:menuLayer];
     return menuScene;
+}
+
+-(void)update:(ccTime)delta {
+    [sharedGameLogic update:delta];
 }
 
 @end

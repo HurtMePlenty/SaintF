@@ -9,6 +9,7 @@
 #import "GUILayer.h"
 #import "Hero.h"
 
+
 static GUILayer* _sharedGUILayer;
 
 @interface GUILayer() {
@@ -26,6 +27,20 @@ static GUILayer* _sharedGUILayer;
         self.touchEnabled = true;
     }
     return self;
+}
+
+-(void) buildControls {
+    
+    
+    /*CCMenuItem blessBtn = [CCMenuItemSprite itemWithNormalSprite:<#(CCNode<CCRGBAProtocol> *)#> selectedSprite:<#(CCNode<CCRGBAProtocol> *)#> target:<#(id)#> selector:<#(SEL)#>]
+    
+    CCMenuItem *starMenuItem = [CCMenuItemImage
+                                itemFromNormalImage:@"ButtonStar.png" selectedImage:@"ButtonStarSel.png"
+                                target:self selector:@selector(starButtonTapped:)];
+    starMenuItem.position = ccp(60, 60);
+    CCMenu *starMenu = [CCMenu menuWithItems:starMenuItem, nil];
+    starMenu.position = CGPointZero;
+    [self addChild:starMenu];*/
 }
 
 +(GUILayer*) sharedGUILayer {

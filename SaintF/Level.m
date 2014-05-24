@@ -22,10 +22,10 @@
     CGPoint spawnPosition = ccp(spawnX, spawnY);
     [hero spawnAtPosition:spawnPosition];
     
-    [self startLevel];
+    [self buildBackground];
 }
 
-+(void) startLevel {
++(void) buildBackground {
     [[GameLogic sharedGameLogic] buildInitialBackground];
 }
 

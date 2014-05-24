@@ -11,12 +11,13 @@
 @interface FlowingAnimation() {
     NSArray* _frames;
     float _delay;
-
     
     CCSprite* sprite1;
     CCSprite* sprite2;
-    float _frameDist;
-    void(^_delegate)(void);
+    int showingFrameIndex;
+    
+    CGPoint _shift;
+    void(^_delegate)(CGPoint);
     
 }
 
@@ -24,7 +25,7 @@
 
 @implementation FlowingAnimation
 
--(id)initWithFrames: (NSArray*)frames delay:(float)delay callBack:(void(^)(void))delegate {
+-(id)initWithFrames: (NSArray*)frames delay:(float)delay callBack:(void(^)(CGPoint))delegate {
     if(self = [super init])
     {
         _frames = frames;
@@ -38,50 +39,44 @@
         [self addChild:sprite1];
         [self addChild:sprite2];
         self.visible = false;
-        [self setInitialFrames];
     }
     return self;
 }
 
--(void) startAnimation:(MoveDirection)direction {
-    
-    CCLOG(@"started");
-    [self setInitialFrames];
-    if(direction == LEFT)
-    {
-        sprite1.rotationY = 180;
-        sprite2.rotationY = 180;
-    }
-    else {
-        sprite1.rotationY = 0;
-        sprite2.rotationY = 0;
-    }
-    
-    self.visible = true;
-    [self scheduleUpdate];
-    
+-(void) startAnimationWithShift: (CGPoint)shift {
+    [self setShift:shift];
+    [self startAnimation];
 }
 
--(void) setInitialFrames {
-    sprite1.displayFrame = [_frames objectAtIndex:0];
-    sprite2.displayFrame = [_frames objectAtIndex:1];
-    sprite1.opacity = 255;
-    sprite2.opacity = 0;
+-(void) setShift: (CGPoint) shift {
+    sprite2.position = _shift = shift;
+}
+
+-(void) startAnimation {
+    
+    CCLOG(@"started");
+    showingFrameIndex = 0;
+    self.visible = true;
+    [self nextFrame];
+    [self scheduleUpdate];
 }
 
 -(void) stopAnimation {
-    [self setInitialFrames];
     [self unscheduleUpdate];
     self.visible = false;
 }
 
--(void) swapFrames {
-    CCSprite* swap;
-    swap = sprite1;
-    sprite1 = sprite2;
-    sprite2 = swap;
-    sprite1.opacity = 255; //should be fine anyway, just to make sure
+-(void) nextFrame {
+    sprite1.displayFrame = [_frames objectAtIndex:showingFrameIndex];
+    showingFrameIndex++;
+    if(showingFrameIndex >= _frames.count) {
+        showingFrameIndex = 0;
+    }
+    sprite2.displayFrame = [_frames objectAtIndex: showingFrameIndex];
+    sprite1.opacity = 255;
     sprite2.opacity = 0;
+    
+    
 }
 
 -(void) update:(ccTime)delta{
@@ -109,14 +104,11 @@
     sprite1.opacity = opacity1;
     sprite2.opacity = opacity2;
     
-    opacity2 = sprite2.opacity;
-    CCLOG(@"%f", opacity2);
-    
     if(isOver) {
         if(_delegate){
-            _delegate();
+            _delegate(_shift);
         }
-        [self swapFrames];
+        [self nextFrame];
     }
     
 }
